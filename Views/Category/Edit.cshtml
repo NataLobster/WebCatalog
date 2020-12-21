@@ -1,0 +1,25 @@
+﻿@model Category
+
+@{
+    ViewData["Title"] = "Каталог продукции";
+}
+
+
+<div>
+    <h1 class="display-4">Категории</h1>
+    <form method="post" action="">
+        <table>
+            <tr>
+                <td><p>Ид продукта </p></td>
+                @*<td><input type="text" value="@ViewBag.Id" name="Id" /></td>*@
+                <td><input type="text" value="@Model.Id" name="Id" /></td>
+            </tr>
+            <tr>
+                <td><p>Наименование продукта </p></td>
+                @*<td><input type="text" value="@ViewBag.ProdName" name="ProdName" /> </td>*@
+                <td><input type="text" value="@Model.CategoryName" name="ProdName" /> </td>
+            </tr>
+            <tr><td><input type="submit" value="Сохранить" /> </td><td></td></tr>
+        </table>
+    </form>
+</div>

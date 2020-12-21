@@ -1,8 +1,36 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Каталог продукции";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div>
+    <h1 class="display-4">Продукты</h1>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <td> Наименование продукта </td>
+                    <td> Категория </td>
+                    <td> Описание </td>
+                    <td> Стоимость в рублях </td>
+                    <td> Примечание общее </td>
+                    <td> Примечание специальное </td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.CatalogProds)
+                {
+                <tr>
+                    <td> @item.ProdName </td>
+                    <td> @item.IdCategory </td>
+                    <td> @item.DescriptionProd </td>
+                    <td> @item.Price </td>
+                    <td> @item.Remark </td>
+                    <td> @item.SpecialRemark </td> 
+                    <td><p><a href="/Home/Edit/@item.Id">Edit</a></p></td> 
+                    <td><p><a href="/Home/Delete/@item.Id">Delete</a></p></td> 
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

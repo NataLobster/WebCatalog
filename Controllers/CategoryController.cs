@@ -9,13 +9,13 @@ using WebCatalog.Models;
 
 namespace WebCatalog.Controllers
 {
-    public class HomeController : Controller
+    public class CategoryController : Controller
     {
         CatalogContext db = new CatalogContext();
         public IActionResult Index()
         {
-            List<CatalogProd> prods = db.CatalogProds.ToList();
-            ViewBag.CatalogProds = prods;
+            List<Category> categories = db.Categories.ToList();
+            ViewBag.Categories = categories;
             return View();
         }
 
@@ -23,9 +23,9 @@ namespace WebCatalog.Controllers
         public IActionResult Edit(int id)
         {
             //получаем запись из БД по ИД
-            CatalogProd prods = db.CatalogProds.Find(id);
+            Category categories = db.Categories.Find(id);
             // передаем запись
-            return View(prods);
+            return View(categories);
         }
 
         [HttpPost]
@@ -39,7 +39,6 @@ namespace WebCatalog.Controllers
             return ($"Изменения сохранены!");
 
         }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
