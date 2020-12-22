@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Каталог продукции";
+}
+
+<div>
+    <h1 class="display-4">Продукты</h1>
+    <form method="post" action="">
+        <table>
+            <tr>
+                @*<td><p>Ид продукта </p></td>*@
+                <td><input type="hidden"  name="Id" /></td>
+            </tr>
+            <tr>
+                <td><p>Наименование продукта </p></td>                
+                <td><input type="text"  name="ProdName" /> </td>
+            </tr>
+            <tr>
+                <td><p>Категория </p></td>              
+                <td><input type="text"  name="IdCategory" /> </td>
+
+            </tr>
+            <tr>
+                <td><p>Описание </p></td>               
+                <td><input type="text"  name="DescriptionProd" /> </td>
+            </tr>
+            <tr>
+                <td><p>Цена в рублях </p></td>                
+                <td><input type="text"  name="Price" /> </td>
+            </tr>
+            <tr>
+                <td><p>Примечание </p></td>               
+                <td><input type="text"  name="Remark" /> </td>
+            </tr>
+            <tr>
+                <td><p>Спец.примечание </p></td>               
+                <td><input type="text"  name="SpecialRemark" /> </td>
+            </tr>
+
+            <tr><td><input type="submit" value="Сохранить" /> </td><td></td></tr>
+        </table>
+    </form>
+</div>

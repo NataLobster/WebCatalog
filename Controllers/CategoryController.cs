@@ -20,6 +20,25 @@ namespace WebCatalog.Controllers
         }
 
         [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Category edit_categories)
+        {
+            //добавляем данные в БД
+            //db.CatalogProds.Add(catalogProd);
+            //сохраняем данные
+            db.Categories.Add(edit_categories);
+            db.SaveChanges();
+            //возвращаем каталог 
+            return RedirectToAction("Index");
+
+        }
+
+        [HttpGet]
         public IActionResult Edit(int id)
         {
             //получаем запись из БД по ИД
@@ -29,15 +48,17 @@ namespace WebCatalog.Controllers
         }
 
         [HttpPost]
-        public string Edit(CatalogProd catalogProd)
+        public IActionResult Edit(Category edit_categories)
         {
             //добавляем данные в БД
             //db.CatalogProds.Add(catalogProd);
             //сохраняем данные
+            db.Categories.Update(edit_categories);
             db.SaveChanges();
             //возвращаем сообщение
-            return ($"Изменения сохранены!");
-
+            //return ($"Изменения {edit_categories.CategoryName} сохранены!");
+            return RedirectToAction("Index");
+                  
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

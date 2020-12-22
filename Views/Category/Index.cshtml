@@ -4,8 +4,9 @@
 
 <div>
     <h1 class="display-4">Категории</h1>
+    @Html.ActionLink("Create new", "Create")
     <div>
-        <table>
+        <table class="table">
             <thead>
                 <tr>
                     <td> Ид </td>
@@ -15,13 +16,15 @@
             <tbody>
                 @foreach (var item in ViewBag.Categories)
                 {
-                <tr>
-                    <td> @item.Id </td>
-                    <td> @item.CategoryName </td>
-                    <td><p><a href="/Category/Edit/@item.Id">Edit</a></p></td>
-                    <td><p><a href="/Category/Delete/@item.Id">Delete</a></p></td>
+                    <tr>
+                        <td> @item.Id </td>
+                        <td> @item.CategoryName </td>
+                        <td>
+                            <a href="/Category/Edit/@item.Id">Edit</a> |
+                            <a href="/Category/Delete/@item.Id">Del</a>
+                        </td>
 
-                </tr>
+                    </tr>
                 }
             </tbody>
         </table>

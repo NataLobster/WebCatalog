@@ -1,6 +1,4 @@
-﻿@model Category
-
-@{
+﻿@{
     ViewData["Title"] = "Каталог продукции";
 }
 
@@ -10,12 +8,12 @@
     <form method="post" action="">
         <table>
             <tr>
-                <td><p>Ид продукта </p></td>              
-                <td><input type="text" value="@Model.Id" name="Id" /></td>
+                @*<td><p>Ид продукта </p></td>*@                
+                <td><input type="hidden"  name="Id" /></td>
             </tr>
             <tr>
-                <td><p>Наименование продукта </p></td>               
-                <td><input type="text" value="@Model.CategoryName" name="CategoryName" /> </td>
+                <td><p>Наименование продукта </p></td>             
+                <td><input type="text" name="CategoryName" /> </td>
             </tr>
             <tr><td><input type="submit" value="Сохранить" /> </td><td></td></tr>
         </table>

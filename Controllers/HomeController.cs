@@ -20,6 +20,25 @@ namespace WebCatalog.Controllers
         }
 
         [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(CatalogProd edit_prods)
+        {
+            //добавляем данные в БД
+            //db.CatalogProds.Add(catalogProd);
+            //сохраняем данные
+            db.CatalogProds.Add(edit_prods);
+            db.SaveChanges();
+            //возвращаем каталог 
+            return RedirectToAction("Index");
+
+        }
+
+        [HttpGet]
         public IActionResult Edit(int id)
         {
             //получаем запись из БД по ИД
@@ -29,15 +48,28 @@ namespace WebCatalog.Controllers
         }
 
         [HttpPost]
-        public string Edit(CatalogProd catalogProd)
+        public IActionResult Edit(CatalogProd edit_prods)
         {
             //добавляем данные в БД
             //db.CatalogProds.Add(catalogProd);
             //сохраняем данные
+            db.CatalogProds.Update(edit_prods);
             db.SaveChanges();
-            //возвращаем сообщение
-            return ($"Изменения сохранены!");
+            //возвращаем каталог 
+            return RedirectToAction("Index");
 
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+         {
+            //получаем запись из БД по ИД
+            CatalogProd prods = db.CatalogProds.Find(id);
+            // удаляем запись
+            db.CatalogProds.Remove(prods);
+            db.SaveChanges();
+            //возвращаем каталог 
+            return RedirectToAction("Index");
         }
 
 

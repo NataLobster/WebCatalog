@@ -4,8 +4,9 @@
 
 <div>
     <h1 class="display-4">Продукты</h1>
+    @Html.ActionLink("Create new", "Create")
     <div>
-        <table>
+        <table class="table">
             <thead>
                 <tr>
                     <td> Наименование продукта </td>
@@ -19,16 +20,20 @@
             <tbody>
                 @foreach (var item in ViewBag.CatalogProds)
                 {
-                <tr>
-                    <td> @item.ProdName </td>
-                    <td> @item.IdCategory </td>
-                    <td> @item.DescriptionProd </td>
-                    <td> @item.Price </td>
-                    <td> @item.Remark </td>
-                    <td> @item.SpecialRemark </td> 
-                    <td><p><a href="/Home/Edit/@item.Id">Edit</a></p></td> 
-                    <td><p><a href="/Home/Delete/@item.Id">Delete</a></p></td> 
-                </tr>
+                    <tr>
+                        <td> @item.ProdName </td>
+                        <td> @item.IdCategory </td>
+                        <td> @item.DescriptionProd </td>
+                        <td> @item.Price </td>
+                        <td> @item.Remark </td>
+                        <td> @item.SpecialRemark </td>
+                        <td>
+                            @Html.ActionLink("Edit |", "Edit", new { id = @item.Id })
+                            @*<a href="/Home/Edit/@item.Id">Edit</a> |*@
+                            @Html.ActionLink("Del |", "Delete", new { id = @item.Id })
+                            @*<a href="/Home/Delete/@item.Id">Del</a> |*@
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
