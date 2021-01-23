@@ -24,7 +24,7 @@ namespace WebCatalog.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=Catalog;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=Catalog;Trusted_Connection=True;");
             }
         }
     }

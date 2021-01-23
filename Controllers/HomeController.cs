@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -15,14 +16,37 @@ namespace WebCatalog.Controllers
         public IActionResult Index()
         {
             List<CatalogProd> prods = db.CatalogProds.ToList();
-            ViewBag.CatalogProds = prods;
+            List<Category> categories = db.Categories.ToList();
+
+            List<CatalogProdView> prodView = new List<CatalogProdView>();
+
+            foreach (var item in prods)
+            {
+                prodView.Add(new CatalogProdView
+                {
+                    Id = item.Id,
+                    //CategoryName = db.Categories.Where(x => x.Id == item.IdCategory).Select(x => x.CategoryName).FirstOrDefault(),
+                    ProdName = item.ProdName,
+                    DescriptionProd = item.DescriptionProd,
+                    Price = item.Price,
+                    Remark = item.Remark,
+                    SpecialRemark = item.SpecialRemark,
+                    Category = categories.FirstOrDefault(c => c.Id == item.IdCategory)
+
+            });
+            } 
+            
+            ViewBag.CatalogProds = prodView;
             return View();
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            //List<Category> categories = db.Categories.ToList();
+            SelectList categories = new SelectList(db.Categories,"Id", "CategoryName");
+            ViewBag.CategoryProd = categories;
+            return View ();
         }
 
         [HttpPost]
@@ -42,6 +66,8 @@ namespace WebCatalog.Controllers
         public IActionResult Edit(int id)
         {
             //получаем запись из БД по ИД
+            SelectList categories = new SelectList(db.Categories, "Id", "CategoryName");
+            ViewBag.CategoryProd = categories;
             CatalogProd prods = db.CatalogProds.Find(id);
             // передаем запись
             return View(prods);
@@ -62,7 +88,7 @@ namespace WebCatalog.Controllers
 
         [HttpGet]
         public IActionResult Delete(int id)
-         {
+        {
             //получаем запись из БД по ИД
             CatalogProd prods = db.CatalogProds.Find(id);
             // удаляем запись

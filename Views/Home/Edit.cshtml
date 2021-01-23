@@ -11,38 +11,34 @@
         <table>
             <tr>
                 <td><p>Ид продукта </p></td>
-                @*<td><input type="text" value="@ViewBag.Id" name="Id" /></td>*@
                 <td><input type="text" value="@Model.Id" name="Id" /></td>
             </tr>
             <tr>
                 <td><p>Наименование продукта </p></td>
-                @*<td><input type="text" value="@ViewBag.ProdName" name="ProdName" /> </td>*@
                 <td><input type="text" value="@Model.ProdName" name="ProdName" /> </td>
             </tr>
             <tr>
                 <td><p>Категория </p></td>
-                @*<td><input type="text" value="@ViewBag.IdCategory" name="IdCategory" /> </td>*@
-                <td><input type="text" value="@Model.IdCategory" name="IdCategory" /> </td>
+                @*<td><input type="text" value="@Model.IdCategory" name="IdCategory" /> </td>*@
+                <td>@Html.DropDownListFor(model => model.IdCategory, ViewBag.CategoryProd as SelectList)</td>
 
             </tr>
             <tr>
                 <td><p>Описание </p></td>
-                @*<td><input type="text" value="@ViewBag.DescriptionProd" name="DescriptionProd" /> </td>*@
                 <td><input type="text" value="@Model.DescriptionProd" name="DescriptionProd" /> </td>
             </tr>
             <tr>
                 <td><p>Цена в рублях </p></td>
-                @*<td><input type="text" value="@ViewBag.Price" name="Price" /> </td>*@
                 <td><input type="text" value="@Model.Price" name="Price" /> </td>
             </tr>
             <tr>
                 <td><p>Примечание </p></td>
-                @*<td><input type="text" value="@ViewBag.Remark" name="Remark" /> </td>*@
+                
                 <td><input type="text" value="@Model.Remark" name="Remark" /> </td>
             </tr>
             <tr>
                 <td><p>Спец.примечание </p></td>
-                @*<td><input type="text" value="@ViewBag.SpecialRemark" name="SpecialRemark" /> </td>*@
+                
                 <td><input type="text" value="@Model.SpecialRemark" name="SpecialRemark" /> </td>
             </tr>
 
