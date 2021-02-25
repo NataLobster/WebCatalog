@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -14,8 +14,10 @@ namespace WebCatalog.Controllers
         CatalogContext db = new CatalogContext();
         public IActionResult Index()
         {
-            List<Category> categories = db.Categories.ToList();
-            ViewBag.Categories = categories;
+            //List<Category> categories = db.Categories.ToList();
+            IEnumerable<Category> catt = db.Categories.FromSqlRaw("SELECT * FROM Categories ORDER BY CategoryName");
+            //ViewBag.Categories = categories;
+            ViewBag.Categories = catt;
             return View();
         }
 
@@ -26,16 +28,19 @@ namespace WebCatalog.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Category edit_categories)
+        public IActionResult Create(Category create_categories)
         {
+            //добавление через хранимую процедуру
+            var param = new Microsoft.Data.SqlClient.SqlParameter("@name", create_categories.CategoryName);
+            db.Database.ExecuteSqlRaw("dbo.CategoriesAdd @name", param);
+            
             //добавляем данные в БД
-            //db.CatalogProds.Add(catalogProd);
-            //сохраняем данные
-            db.Categories.Add(edit_categories);
-            db.SaveChanges();
-            //возвращаем каталог 
-            return RedirectToAction("Index");
+            //*сохраняем данные через EF
+            //db.Categories.Add(create_categories);
+            //db.SaveChanges();
 
+            //возвращаем категории 
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -53,12 +58,19 @@ namespace WebCatalog.Controllers
             //добавляем данные в БД
             //db.CatalogProds.Add(catalogProd);
             //сохраняем данные
-            db.Categories.Update(edit_categories);
-            db.SaveChanges();
+            //db.Categories.Update(edit_categories);
+            //db.SaveChanges();
+
+            //через хранимую процедуру
+            object[] param = new object[2];
+            param[0] = new Microsoft.Data.SqlClient.SqlParameter("@name", edit_categories.CategoryName);
+            param[1] = new Microsoft.Data.SqlClient.SqlParameter("@id", edit_categories.Id);
+            
             //возвращаем сообщение
             //return ($"Изменения {edit_categories.CategoryName} сохранены!");
+            db.Database.ExecuteSqlRaw("dbo.CategoriesEdit @name, @id", param);
             return RedirectToAction("Index");
-                  
+
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

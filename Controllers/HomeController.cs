@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -50,16 +51,38 @@ namespace WebCatalog.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CatalogProd edit_prods)
+        public IActionResult Create(CatalogProd create_prods)
         {
-            //добавляем данные в БД
-            //db.CatalogProds.Add(catalogProd);
-            //сохраняем данные
-            db.CatalogProds.Add(edit_prods);
-            db.SaveChanges();
-            //возвращаем каталог 
-            return RedirectToAction("Index");
+                      
+            if (ModelState.IsValid)
+            {
+                //добавляем данные в БД
+                //db.CatalogProds.Add(create_prods);
+                //db.SaveChanges();
 
+                //через хранимую процедуру
+                Microsoft.Data.SqlClient.SqlParameter[] param = new Microsoft.Data.SqlClient.SqlParameter[6];
+                param[0] = new Microsoft.Data.SqlClient.SqlParameter("@idCategory", create_prods.IdCategory);
+                param[1] = new Microsoft.Data.SqlClient.SqlParameter("@prodName", create_prods.ProdName);
+                param[2] = new Microsoft.Data.SqlClient.SqlParameter("@description", create_prods.DescriptionProd);
+                param[3] = new Microsoft.Data.SqlClient.SqlParameter("@price", create_prods.Price);
+                param[4] = new Microsoft.Data.SqlClient.SqlParameter("@remark", create_prods.Remark);
+                if (param[4].Value == null) param[4].Value = DBNull.Value;
+                param[5] = new Microsoft.Data.SqlClient.SqlParameter("@specialRemark", create_prods.SpecialRemark);
+                if (param[5].Value == null) param[5].Value = DBNull.Value;
+
+                //возвращаем сообщение
+                //return ($"Изменения {edit_categories.CategoryName} сохранены!");
+                db.Database.ExecuteSqlRaw("dbo.CatalogProdsAdd @idCategory, @prodName, @description, @price, @remark, @specialRemark", param);
+
+                //возвращаем каталог 
+                return RedirectToAction("Index");
+            }
+            // строчечка, которая позволяет увидеть ошибки валидации, если она не проходит (надо только на следующую точку останова поставить и watch-ить)
+            //var errors = ModelState.Values.SelectMany(v => v.Errors);
+            SelectList categories = new SelectList(db.Categories, "Id", "CategoryName");
+            ViewBag.CategoryProd = categories;
+            return View("Create");
         }
 
         [HttpGet]

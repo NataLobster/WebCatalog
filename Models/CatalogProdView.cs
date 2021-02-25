@@ -9,7 +9,6 @@ namespace WebCatalog.Models
     {
         
         public int Id { get; set; }
-        // public string CategoryName { get; set; }
         public string ProdName { get; set; }
         public string DescriptionProd { get; set; }
         public decimal Price { get; set; }

@@ -1,7 +1,7 @@
 ﻿@model CatalogProd
-@{
-    ViewData["Title"] = "Каталог продукции";
-}
+@*@{
+        ViewData["Title"] = "Каталог продукции";
+    }*@
 
 <div>
     <h1 class="display-4">Продукты</h1>
@@ -9,41 +9,41 @@
         <table>
             <tr>
                 @*<td><p>Ид продукта </p></td>*@
-                <td><input type="hidden" name="Id" /></td>
+                @*<td><input type="hidden" name="Id" /></td>*@
             </tr>
-            <tr>
-                <td><p>Выберите категорию </p></td>
-                <td>@Html.DropDownListFor(model => model.IdCategory, ViewBag.CategoryProd as SelectList)</td>
-            </tr>
-            <tr>
-                <td><p>Наименование продукта </p></td>
-                <td><input type="text" name="ProdName" /> </td>
-            </tr>
-            @*<tr>
-            <td><p>Категория </p></td>
+                    <tr>
+                        <td><p>Выберите категорию </p></td>
+                        <td>@Html.DropDownListFor(model => model.IdCategory, ViewBag.CategoryProd as SelectList)</td>
+                    </tr>
+                    <tr>
+                        <td><p>Наименование продукта </p></td>
+                        @*<td><input type="text" name="ProdName" /> </td>*@
+                        <td>@Html.EditorFor(model => model.ProdName)</td>
+                        <td>@Html.ValidationMessageFor(model => model.ProdName)</td>
+                    </tr>
+                    <tr>
+                        <td><p>Описание </p></td>
+                        @*<td><input type="text" name="DescriptionProd" /> </td>*@
+                        <td>@Html.EditorFor(model => model.DescriptionProd)</td>
+                        <td>@Html.ValidationMessageFor(model => model.DescriptionProd)</td>
+                    </tr>
+                    <tr>
+                        <td><p>Цена в рублях </p></td>
+                        @*<td><input type="text" name="Price" /> </td>*@
+                        <td>@Html.EditorFor(model => model.Price)</td>
+                        <td>@Html.ValidationMessageFor(model => model.Price)</td>
+                    </tr>
+                    <tr>
+                        <td><p>Примечание </p></td>
+                        <td><input type="text" name="Remark" /> </td>
+                    </tr>
+                    <tr>
+                        <td><p>Спец.примечание </p></td>
+                        <td><input type="text" name="SpecialRemark" /> </td>
+                    </tr>
 
-            <td><input type="text" name="IdCategory" /> </td>
+                    <tr><td><input type="submit" value="Сохранить" /> </td><td></td></tr>
+                </table>
 
-        </tr>*@
-            <tr>
-                <td><p>Описание </p></td>
-                <td><input type="text" name="DescriptionProd" /> </td>
-            </tr>
-            <tr>
-                <td><p>Цена в рублях </p></td>
-                <td><input type="text" name="Price" /> </td>
-            </tr>
-            <tr>
-                <td><p>Примечание </p></td>
-                <td><input type="text" name="Remark" /> </td>
-            </tr>
-            <tr>
-                <td><p>Спец.примечание </p></td>
-                <td><input type="text" name="SpecialRemark" /> </td>
-            </tr>
-
-            <tr><td><input type="submit" value="Сохранить" /> </td><td></td></tr>
-        </table>
-        
-    </form>
-</div>
+            </form>
+        </div>
